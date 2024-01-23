@@ -1,7 +1,7 @@
 {
   "name": "07-cesar-router",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "main": "lib/index.js",
   "module": "lib/index.js",
@@ -15,14 +15,17 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "prepare": "swc src --only **/*.jsx -d lib --ignore src/pages --ignore src/App.jsx --ignore src/main.jsx --ignore src/Router.test.jsx",
+    "prepare": "npm run test && swc src/components src/utils src/index.jsx -d lib",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:ui": "vitest --ui"
   },
   "dependencies": {
-    "path-to-regexp": "6.2.1",
+    "path-to-regexp": "6.2.1"
+  },
+  "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

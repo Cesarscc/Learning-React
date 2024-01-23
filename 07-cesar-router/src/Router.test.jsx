@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { cleanup, render, screen, fireEvent } from "@testing-library/react";
-import { Router } from "./Router";
-import { Route } from "./Route";
-import { getCurrentPath } from "./utils";
-import { Link } from "./Link";
+import { Router } from "./components/Router";
+import { Route } from "./components/Route";
+import { getCurrentPath } from "./utils/getCurrenthPath";
+import { Link } from "./components/Link";
 
-vi.mock("./utils.js", () => ({
+vi.mock("./utils/getCurrenthPath.js", () => ({
   getCurrentPath: vi.fn(),
 }));
 
