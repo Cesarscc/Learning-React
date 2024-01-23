@@ -1,6 +1,5 @@
 {
   "name": "07-cesar-router",
-  "private": true,
   "version": "0.0.2",
   "type": "module",
   "main": "lib/index.js",
