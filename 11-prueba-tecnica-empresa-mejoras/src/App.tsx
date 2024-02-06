@@ -41,6 +41,7 @@ function App() {
 
     const position = users.map((user) => user.email).indexOf(email)
 
+
   }
 
   const handleChangeSort = (sort: SortBy) => {
