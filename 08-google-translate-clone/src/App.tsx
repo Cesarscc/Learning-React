@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import { translateText } from './services/translate';
 import { useDebounce } from "./hooks/useDebounce";
 
+
 function App() {
 
   const { loading, fromLanguage, toLanguage, fromText, result, interchangeLanguages, setFromLanguage, setToLanguage, setFromText, setResult } = useStore()
