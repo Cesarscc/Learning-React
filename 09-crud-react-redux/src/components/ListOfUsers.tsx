@@ -74,15 +74,15 @@ export function ListOfUsers() {
                                             <form onSubmit={handleSubmit} className='flex flex-col items-center space-y-5'>
                                                 <div className='flex flex-col'>
                                                     <label className='text-white text-left'>Nombre</label>
-                                                    <input name="nombre" className='w-72' type='text' placeholder='Ingrese nuevo nombre' />
+                                                    <input defaultValue={item.name} name="nombre" className='w-72' type='text' placeholder='Ingrese nuevo nombre' />
                                                 </div>
                                                 <div className='flex flex-col'>
                                                     <label className='text-white text-left'>Correo</label>
-                                                    <input name="correo" className='w-72' type='text' placeholder='Ingrese nuevo correo' />
+                                                    <input defaultValue={item.email} name="correo" className='w-72' type='text' placeholder='Ingrese nuevo correo' />
                                                 </div>
                                                 <div className='flex flex-col'>
                                                     <label className='text-white text-left'>Usuario Github</label>
-                                                    <input name="github" className='w-72' type='text' placeholder='Ingrese nuevo usuario github' />
+                                                    <input defaultValue={item.github} name="github" className='w-72' type='text' placeholder='Ingrese nuevo usuario github' />
                                                 </div>
                                                 <div className='flex gap-10'>
                                                     <button className='w-24 h-8 bg-slate-400 text-white' type='submit'>Guardar</button>

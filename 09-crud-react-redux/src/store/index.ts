@@ -10,7 +10,7 @@ const persistanceLocalStorageMiddleware: Middleware =
 
 const syncWithDatabaseMiddleware: Middleware =
   (store) => (next) => (action) => {
-    const { type, payload } = action;
+    const { type, payload } = action as { type: string; payload: any };
     const previousState = store.getState() as RootState;
     next(action);
 
@@ -25,16 +25,15 @@ const syncWithDatabaseMiddleware: Middleware =
         method: "DELETE",
       })
         .then((res) => {
-          // if (res.ok) {
-          toast.success(`Usuario ${payload} eliminado correctamente`);
-          // }
-          //throw new Error("Error al eliminar el usuario");
+          if (res.ok) {
+            toast.success(`Usuario ${payload} eliminado correctamente`);
+          }
         })
         .catch((err) => {
-          /* toast.error(`Error deleting user ${userIdToRemove}`);
+          toast.error(`Error deleting user ${userIdToRemove}`);
           if (userToRemove) store.dispatch(rollbackUser(userToRemove));
           console.log(err);
-          console.log("error"); */
+          console.log("error");
         });
     }
   };
