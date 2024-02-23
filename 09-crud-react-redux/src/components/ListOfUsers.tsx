@@ -11,10 +11,26 @@ import {
 } from '@tremor/react'
 import { useAppSelector } from '../hooks/store'
 import { useUserActions } from '../hooks/useUserActions'
+import { useState } from 'react'
 
 export function ListOfUsers() {
+    const [tooltip, setTooltip] = useState("key");
+
     const users = useAppSelector((state) => state.users)
-    const { removeUser } = useUserActions()
+    const { removeUser, editUser } = useUserActions()
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        const form = event.target as HTMLFormElement
+        const formData = new FormData(form)
+        const name = formData.get("nombre") as string
+        const email = formData.get("correo") as string
+        const github = formData.get("github") as string
+
+        editUser({ name, email, github }, tooltip)
+        form.reset()
+        setTooltip("")
+    }
 
     return (
         <Card>
@@ -32,7 +48,7 @@ export function ListOfUsers() {
                     </TableRow>
                 </TableHead>
 
-                <TableBody>
+                <TableBody >
                     {users.map((item) => (
                         <TableRow key={item.name}>
                             <TableCell>{item.id}</TableCell>
@@ -49,9 +65,31 @@ export function ListOfUsers() {
                                 />
                                 {item.name}
                             </TableCell>
-                            <TableCell>{item.email}</TableCell>
+                            <TableCell >{item.email}</TableCell>
                             <TableCell>
-                                <button type='button'>
+                                <button type='button' onClick={() => setTooltip(item.id)}>
+                                    {tooltip === item.id &&
+                                        <div className='absolute z-50 w-[100%] h-[200%] bg-slate-800 left-0 top-0 cursor-default flex flex-col justify-center space-y-10'>
+                                            <strong className='text-white text-2xl'>Editando Usuario {item.name}</strong>
+                                            <form onSubmit={handleSubmit} className='flex flex-col items-center space-y-5'>
+                                                <div className='flex flex-col'>
+                                                    <label className='text-white text-left'>Nombre</label>
+                                                    <input name="nombre" className='w-72' type='text' placeholder='Ingrese nuevo nombre' />
+                                                </div>
+                                                <div className='flex flex-col'>
+                                                    <label className='text-white text-left'>Correo</label>
+                                                    <input name="correo" className='w-72' type='text' placeholder='Ingrese nuevo correo' />
+                                                </div>
+                                                <div className='flex flex-col'>
+                                                    <label className='text-white text-left'>Usuario Github</label>
+                                                    <input name="github" className='w-72' type='text' placeholder='Ingrese nuevo usuario github' />
+                                                </div>
+                                                <div className='flex gap-10'>
+                                                    <button className='w-24 h-8 bg-slate-400 text-white' type='submit'>Guardar</button>
+                                                    <button className='w-24 h-8 bg-red-600 text-white' onClick={() => setTooltip("")}>Cancelar</button>
+                                                </div>
+                                            </form>
+                                        </div>}
                                     <svg
                                         xmlns='http://www.w3.org/2000/svg'
                                         fill='none'
@@ -89,6 +127,6 @@ export function ListOfUsers() {
                     ))}
                 </TableBody>
             </Table>
-        </Card>
+        </Card >
     )
 }

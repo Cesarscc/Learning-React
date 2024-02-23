@@ -42,6 +42,18 @@ export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
+    editUserById: (state, action: PayloadAction<UserWithId>) => {
+      const updatedUser = action.payload;
+      console.log(updatedUser);
+      const existingUserIndex = state.findIndex(
+        (user) => user.id === updatedUser.id
+      );
+      console.log(existingUserIndex);
+      console.log(state);
+      if (existingUserIndex !== -1) {
+        state[existingUserIndex] = updatedUser;
+      }
+    },
     addNewUser: (state, action: PayloadAction<User>) => {
       const id = crypto.randomUUID();
       state.push({ id, ...action.payload });
@@ -63,4 +75,5 @@ export const usersSlice = createSlice({
 
 export default usersSlice.reducer;
 
-export const { addNewUser, deleteUserById, rollbackUser } = usersSlice.actions;
+export const { editUserById, addNewUser, deleteUserById, rollbackUser } =
+  usersSlice.actions;
